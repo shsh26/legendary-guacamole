@@ -6,7 +6,7 @@
 배열의 크기 M, 숫자가 더해지는 횟수 M, 그리고 K가 주어질 때 큰 수의 법칙에 따른 결과를 출력하시오.
 
 Example:
-    def solution((n: int, m: int, k: int, arr: List[int]):
+    def solution(n: int, m: int, k: int, arr: List[int]):
         result = n
         return result
 
