@@ -22,16 +22,18 @@ from typing import Iterator
 
 
 def solution(n: int, lost: Iterator[int], reserve: Iterator[int]):
+    # 여벌 보유자 중 도난자 제외
     r = [i for i in reserve if i not in lost]
+    # 도난자 중 여벌 보유자도 제외
     li = [j for j in lost if j not in reserve]
 
-    for i in r:
-        b = i - 1
-        f = i + 1
+    for i in r:  # 여벌 보유자
+        b = i - 1  # 앞 번호
+        f = i + 1  # 뒷 번호
 
-        if b in li:
+        if b in li:  # 도난자 중 앞 번호가 었으면
             li.remove(b)
-        elif f in li:
+        elif f in li:  # 도난자 중 뒷 번호가 있으면
             li.remove(f)
     return n - len(li)
 
