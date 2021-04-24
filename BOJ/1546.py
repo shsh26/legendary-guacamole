@@ -35,9 +35,6 @@ def solution(numbers: list):
 
 def short_code():
     """숏 코드
-
-    n = 과목 수
-    a = 과목당 점수
     """
     result = sum(b := [*map(int, [*open(0)][1].split())]) * 100 / max(b) / len(b)
     print(result)
