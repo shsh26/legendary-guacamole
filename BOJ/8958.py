@@ -39,7 +39,12 @@ def solution(quiz: str):
 
 def short_code():
     """숏 코드
+    -~len(o) 비트별 반전 x -1
+    1 ~ n 까지의 합 n x (n+1) / 2
+    for q in[*open(0)][1:]:print(sum(len(o)*-~len(o)//2for o in q[:-1].split("X")))
     """
+    n,*l=open(0)
+    for i in l:n=0;print(sum((n:=(n+1)*(j=='O'))for j in i))
 
 
 if __name__ == '__main__':
