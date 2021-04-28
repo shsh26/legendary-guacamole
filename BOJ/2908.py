@@ -31,8 +31,7 @@ solution = max
 
 def short_code():
     """숏 코드
-    공백 단위 split
-    리스트 길이
+    문자열[::-1] = 문자열 뒤집기
     """
     print(max(input()[::-1].split()))
 
