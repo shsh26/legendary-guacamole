@@ -20,9 +20,9 @@ solution=sum
 
 def short_code():
     """숏 코드
-    첫 등장 문자를 기준으로 연속으로 나열한 것과 비교
+    입력한 두 수 더하기
     """
-    print(sum([*x]==sorted(x,key=x.find)for x in open(0))-1)
+    print(sum(map(int, input().split())))
 
 
 if __name__ == '__main__':
