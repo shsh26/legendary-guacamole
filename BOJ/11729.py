@@ -29,20 +29,29 @@ Example:
 """
 
 
-def solution(n: int):
-    memo = [0, 1]
-    for i in range(2, n+1):
-        memo.append(memo[i-1] + memo[i-2])
-    return memo[n]
+def solution(n: int, start: int, to: int, via: int):
+    if n == 1:
+        print(start, to)
+        return 1
+    else:
+        solution(n-1, start, via, to)
+        print(start, to)
+        solution(n-1, via, to, start)
 
 
 def short_code():
     """숏 코드
     """
-    a = 0;b = 1
-    exec("a,b=b,a+b;" * int(input()))
-    print(a)
+    N = int(input())
+    print(2 ** N - 1)
+
+    def h(a, b, c, l):
+        if l: h(a, c, b, l - 1);print(a, b);h(c, b, a, l - 1)
+
+    h(1, 3, 2, N)
 
 
 if __name__ == '__main__':
-    print(solution(int(input())))
+    n = int(input())
+    print(2 ** n - 1)
+    solution(n, 1, 3, 2)
