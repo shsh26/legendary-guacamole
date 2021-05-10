@@ -30,36 +30,48 @@ Example:
 """
 
 
-def solution(board: list):
-    chess = [[' '] * 8 for i in range(8)]
-
+def check_color(s_board: list):
+    cnt = 0
+    start = s_board[0][0]
     for i in range(8):
-        for j in range(8):
-            if (i + j) % 2 == 0:
-                chess[i][j] = 'B'
-            else:
-                chess[i][j] = 'W'
+        for j in range(0, 8, 2):
+            if s_board[i][j] != start:
+                cnt += 1
+            if s_board[i][j + 1] == start:
+                cnt += 1
+        if start == 'B':
+            start = 'W'
+        else:
+            start = 'B'
+    return cnt
 
-    change = []
-    for i in range(len(board[0]) - 7):
-        for j in range(len(board) - 7):
-            n = 0
-            for k in range(8):
-                for l in range(8):
-                    if board[i + k][j + l] == chess[k][l]:
-                        n = n + 1
-    change.append(min(n, 64 - n))
-    print(min(change))
+
+def solution(board: list):
+    result = []
+    for i in range(len(board) - 7):
+        for j in range(len(board[0]) - 7):
+            cnt = check_color([x[j:j + 8] for x in board[i:i + 8]])
+            result.append(min(cnt, 64 - cnt))
+    return min(result)
 
 
 def short_code():
     """숏 코드
+    'B'와 'W'를 ord() 함수를 통해 정수로 변경
+    각각 66과 87로 짝수와 홀수 -> 마지막 비트가 0과 1
+    0 1 2 3 4 5 6 7
+    b w b w b w b w = 0 0 0 0 0 0 0 0
+    w b w b w b w b = 1 1 1 1 1 1 1 1
+    각 행에서 0 또는 1로 통일(되어야 정상)
+    따라서 행이 정상인 경우 4에서 빼는 경우 절대값이 4로 계산 되어야 한다.
+    따라서 모든 값이 정상인 경우 32에서 구한 값의 절대값을 빼면 0이 된다.
     """
-    l = [];exec('l.append(input().split());' * int(input()))
-    print(*[sum(c > a and b < d for c, d in l) + 1 for a, b in l])
+    N, M = map(int, input().split())
+    r = range
+    L = [[ord(c) + i + j & 1 for j, c in enumerate(input())] for i in r(N)]
+    print(min(32 - abs(sum(4 - sum(l[j:j + 8]) for l in L[i:i + 8])) for i in r(N - 7) for j in r(M - 7)))
 
 
 if __name__ == '__main__':
     n, m = map(int, input().split())
-    board = [input() for i in range(n)]
-    solution(board)
+    print(solution([input() for i in range(n)]))
