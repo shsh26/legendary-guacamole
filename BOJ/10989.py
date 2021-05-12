@@ -18,25 +18,18 @@ Example:
         solution()
 
 """
+import sys
 
 
-def solution(n: list):
+def solution():
+    n = int(sys.stdin.readline())
     count = [0] * 10001
-    count_sum = [0] * 10001
-    for i in n:
-        count[i] += 1
-
-    count_sum[0] = count[0]
-
-    for i in range(1, len(count)):
-        count_sum[i] = count[i] + count_sum[i - 1]
-
-    result = [0] * (len(n) + 1)
-
-    for i in range(len(n) - 1, -1, -1):
-        result[count_sum[n[i]]] = n[i]
-        count_sum[n[i]] -= 1
-    return result[1:]
+    for i in range(n):
+        count[int(sys.stdin.readline())] += 1
+    for i in range(10001):
+        if count[i] != 0:
+            for j in range(count[i]):
+                print(i)
 
 
 def short_code():
@@ -45,5 +38,4 @@ def short_code():
 
 
 if __name__ == '__main__':
-    for i in solution([int(input()) for i in range(int(input()))]):
-        print(i)
+    solution()
