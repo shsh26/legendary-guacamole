@@ -35,7 +35,14 @@ def solution():
 def short_code():
     """숏 코드
     """
+    E = 5 ** 6
+    l = [0] * E
+    f = open(0)
+    f.readline()
+    for i in f: l[int(i)] += 1
+    for i in range(E): print("%s\n" % i * l[i], end="")
 
 
 if __name__ == '__main__':
-    solution()
+    # solution()
+    short_code()
