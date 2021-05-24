@@ -29,7 +29,7 @@ Example:
 """
 import sys
 
-r = sys.stdin.readline
+# r = sys.stdin.readline
 
 
 # 가로 체크
@@ -77,9 +77,28 @@ def DFS(index):
                 sudoku[nx][ny] = 0
 
 
-sudoku = [list(map(int, r().split())) for _ in range(9)]
-zeros = [(i, j) for i in range(9) for j in range(9) if sudoku[i][j] == 0]
-DFS(0)
+# sudoku = [list(map(int, r().split())) for _ in range(9)]
+# zeros = [(i, j) for i in range(9) for j in range(9) if sudoku[i][j] == 0]
+# DFS(0)
+
+
+def isPossible(cols: list, level: int):
+    for i in range(level):
+        if cols[i] == cols[level] or abs(level - i) == abs(cols[level] - cols[i]):
+            return False
+    return True
+
+
+def solution(cols: list, level: int):
+    if level == 4:
+        for i in range(4):
+            print(cols[i], end=' ')
+        print()
+    else:
+        for i in range(4):
+            cols[i] = i
+            if isPossible(cols, level):
+                solution(cols, level + 1)
 
 
 def short_code():
@@ -90,4 +109,5 @@ def short_code():
 
 
 if __name__ == '__main__':
-    board = [list(map(int, input().split()) for i in range(9))]
+    board = [0] * 4
+    solution(cols=board, level=0)
