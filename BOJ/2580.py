@@ -73,13 +73,6 @@ class Sudoku:
                 self._board[i][j] = 0
 
 
-def short_code():
-    """숏 코드
-    """
-    a = (0, 1, 0, 0, 2, 10, 4, 40, 92, 352, 724, 2680, 14200, 73712, 365596)
-    print(a[int(input())])
-
-
 if __name__ == '__main__':
     sudoku = Sudoku()
     sudoku.dfs(0)
