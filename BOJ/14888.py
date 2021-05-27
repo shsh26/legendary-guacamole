@@ -51,13 +51,10 @@ Example:
 import sys
 from copy import deepcopy
 
-"""
-op = ["+","-","*","/"]
-"""
 op = ["+", "-", "*", "/"]
 
-max = float("-inf")
-min = float("inf")
+MAX = float("-inf")
+MIN = float("inf")
 
 
 def do_operation(ope, val1, val2):
@@ -76,13 +73,13 @@ def do_operation(ope, val1, val2):
 
 
 def dfs(n, a, operators, idx, sum):
-    global max, min
+    global MAX, MIN
 
     if idx == n:
-        if max < sum:
-            max = sum
-        if min > sum:
-            min = sum
+        if MAX < sum:
+            MAX = sum
+        if MIN > sum:
+            MIN = sum
         return
 
     for i in range(4):
@@ -99,15 +96,14 @@ def solve():
 
     dfs(n, a, operators, 1, a[0])
 
-    print(max)
-    print(min)
+    print(MAX)
+    print(MIN)
 
 
 def short_code():
     """숏 코드
     """
-    a = (0, 1, 0, 0, 2, 10, 4, 40, 92, 352, 724, 2680, 14200, 73712, 365596)
-    print(a[int(input())])
+    pass
 
 
 if __name__ == '__main__':
