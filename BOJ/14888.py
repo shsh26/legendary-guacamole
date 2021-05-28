@@ -100,11 +100,24 @@ def solve():
     print(MIN)
 
 
-def short_code():
-    """숏 코드
-    """
-    pass
+def short_code(s, idx, plus, minus, mul, div):
+    global minV, maxV
+    if idx >= N:
+        minV = s if s < minV else minV
+        maxV = s if s > maxV else maxV
+    else:
+        if plus: short_code(s + M[idx], idx + 1, plus - 1, minus, mul, div)
+        if minus: short_code(s - M[idx], idx + 1, plus, minus - 1, mul, div)
+        if mul: short_code(s * M[idx], idx + 1, plus, minus, mul - 1, div)
+        if div: short_code(int(s / M[idx]), idx + 1, plus, minus, mul, div - 1)
 
+
+N = int(input())
+M = list(map(int, input().split()))
+C = list(map(int, input().split()))
+minV = 987654321
+maxV = -987654321
 
 if __name__ == '__main__':
     solve()
+    short_code(M[0], 1, C[0], C[1], C[2], C[3])
