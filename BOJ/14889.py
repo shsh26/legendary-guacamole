@@ -47,15 +47,56 @@ Example:
         solution()
 
 """
+import sys
+import itertools as C
+
+check = [0] * 20
+min_value: int = 987654321
+ans = 10 ** 9
 
 
 def solution():
-    pass
+    N = int(sys.stdin.readline()) // 2
+    M = 2 * N
+    stat = [list(map(int, sys.stdin.readline().split())) for _ in range(M)]
+    newstat = [sum(i) + sum(j) for i, j in zip(stat, zip(*stat))]
+    allstat = sum(newstat) // 2
+
+    mins = 65535
+    for l in C.combinations(newstat[:-1], N):
+        mins = min(mins, abs(allstat - sum(l)))
+    return mins
+
+
+def dfs(idx, cnt):
+    global ans
+    if cnt == n // 2:
+        start, link = 0, 0
+        for i in range(n):
+            for j in range(n):
+                if check[i] and check[j]:
+                    start += stat[i][j]
+                elif not check[i] and not check[j]:
+                    link += stat[i][j]
+        ans = min(ans, abs(start - link))
+
+    for i in range(idx, n):
+        if check[i]:
+            continue
+        check[i] = 1
+        dfs(i + 1, cnt + 1)
+        check[i] = 0
 
 
 def short_code():
-    pass
+    I, S = input, sum;N = int(I());t = [list(map(int, I().split())) for i in range(N)]
+    p = [S(i) + S(j) for i, j in zip(t, zip(*t))]
+    print(min([abs(S(p) // 2 - S(i)) for i in C.combinations(p, N // 2)]))
 
 
 if __name__ == '__main__':
-    solution()
+    n = int(input())
+    stat = [list(map(int, input().split())) for _ in range(n)]
+    dfs(0, 0)
+    print(ans)
+    print(solution())
