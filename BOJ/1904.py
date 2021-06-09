@@ -28,21 +28,46 @@ Example:
         solution()
 
 """
-from itertools import permutations, chain
+import sys
 
 
 def solution(n: int):
-    cnt = 1
+    dp = [0] * 1000001
+    dp[1] = 1
+    dp[2] = 2
 
-    for i in range(1, n):
-        zero = ['00']
-        one = ['1']
-        if n > (2 * i):
-            zero *= (2 * i)
-            one *= n - (n // (2 * i))
-            print(zero, one)
-            zero.extend(one)
+    for k in range(3, n + 1):
+        dp[k] = (dp[k - 1] + dp[k - 2]) % 15746
+    print(dp[n])
+
+
+def short_code():
+    tile = [1, 1, 2]
+    while tile[-2:] != [1, 1]:
+        tile.append((tile[-2] + tile[-1]) % 15746)
+    modular = len(tile) - 2
+    print(tile[int(input()) % modular])
+
+
+def speed_code():
+    mem = {0: 0, 1: 1}
+    mod = 15746
+
+    def tile(t):
+        if t in mem:
+            return mem[t]
+        else:
+            if t % 2 == 0:
+                a = tile(t // 2 - 1) % mod
+                b = tile(t // 2) % mod
+                f = ((2 * a + b) * b) % mod
+            else:
+                f = (tile((t + 1) // 2) % mod) ** 2 + (tile((t - 1) // 2) % mod) ** 2
+            mem[t] = f % mod
+            return f % mod
+
+    print(tile(int(input()) + 1))
 
 
 if __name__ == '__main__':
-    solution(4)
+    solution(int(sys.stdin.readline()))
