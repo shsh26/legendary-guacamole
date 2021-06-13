@@ -35,15 +35,21 @@ def solution(n: int):
     arr = []
     for _ in range(n):
         arr.append(list(map(int, sys.stdin.readline().split())))
-
-    print(arr)
-
-    return
+    for i in range(1, n):
+        arr[i][0] += arr[i-1][0]
+        l = len(arr[i])
+        for j in range(1, l-1):
+            arr[i][j] = max(arr[i-1][j-1], arr[i-1][j]) + arr[i][j]
+        arr[i][l-1] += arr[i-1][l-2]
+    return max(arr[n-1])
 
 
 def short_code():
     """숏 코드
     """
+    a = []
+    exec("a=[v+max(p,q)for v,p,q in zip(map(int,input().split()),a+[0],[0]+a)];" * int(input()))
+    print(max(a))
 
 
 if __name__ == '__main__':
