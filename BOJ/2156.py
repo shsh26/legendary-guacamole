@@ -47,7 +47,6 @@ def solution(cups: list):
 
 def short_code():
     """숏 코드
-    6, 10, 13, 9, 8, 1
     """
     import sys
     I = sys.stdin.readline
