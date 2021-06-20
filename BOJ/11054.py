@@ -25,13 +25,42 @@ Example:
 
 
 def solution(n: int, a: list):
-    pass
+    u = [0] * n
+    d = [0] * n
+    ans = 0
+    ur = range(n)
+    dr = range(n-1, -1, -1)
+    for ui, di in zip(ur, dr):
+        for j in range(ui):
+            if a[ui] > a[j] and u[ui] < u[j]:
+                u[ui] = u[j]
+        for k in range(n-1, di, -1):
+            if a[di] > a[k] and d[di] < d[k]:
+                d[di] = d[k]
+        u[ui] += 1
+        d[di] += 1
+
+    for i in range(n):
+        if ans < (u[i] + d[i] - 1):
+            ans = u[i] + d[i] - 1
+    return ans
 
 
 def short_code():
     """숏 코드
     """
-    pass
+    n = int(input())
+    A = list(map(int, input().split()))
+    m = max(A)
+    upDP = [0] * (m + 1)
+    downDP = [0] * (m + 1)
+    R = [0] * (n + 1)
+    for i in range(n):
+        upDP[A[i]] = max(upDP[:A[i]]) + 1
+        downDP[A[n - i - 1]] = max(downDP[:A[n - i - 1]]) + 1
+        R[i] += upDP[A[i]]
+        R[n - i - 1] += downDP[A[n - i - 1]]
+    print(max(R) - 1)
 
 
 if __name__ == '__main__':
