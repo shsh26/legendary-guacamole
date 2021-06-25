@@ -22,22 +22,29 @@ Example:
 
         solution()
 
+10 6 9
+10-4 -4
+6+3 3
+
 """
 
 
 def solution(n: int, sequence: list):
+    dp = [sequence[0]]
 
-    dp = [[0] * n for _ in range(n)]
-    dp[0][2] = dp[0][1] + dp[1][2]
-    for i in range(n):
-        for j in range(i):
-            dp[i][j] = max(sequence[i:j], sequence[i:j])
-    return dp[n-1][n-1]
+    for i in range(n - 1):
+        dp.append(max(dp[i] + sequence[i + 1], sequence[i + 1]))
+    return max(dp)
 
 
 def short_code():
     """숏 코드
     """
+    r = input
+    r()
+    g = m = -1e9
+    for i in r().split(): g = max(g, 0) + int(i);m = max(m, g)
+    print(m)
 
 
 if __name__ == '__main__':
