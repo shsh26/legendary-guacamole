@@ -35,16 +35,27 @@ Example:
 
 
 def solution(k: int, pack: list):
-    pack.sort(key=lambda x: x[0])
+    dp = [0] * (k + 1)
+    for i in range(len(pack)):
+        for j in range(k, 1, -1):
+            if pack[i][0] <= j:
+                dp[j] = max(dp[j], dp[j - pack[i][0]] + pack[i][1])
 
-    return max(pack[0], pack[1])
+    return dp[k]
 
 
 def short_code():
     """숏 코드
     """
+    n, k = map(int, input().split())
+    dy = [0] * (k + 1)
+    for i in range(n):
+        w, v = map(int, input().split())
+        for j in range(k, w - 1, -1):
+            dy[j] = max(dy[j], dy[j - w] + v)
+    print(dy[k])
 
 
 if __name__ == '__main__':
-    n, k = map(int, input().split())
-    print(solution(k, [tuple(map(int, input().split())) for _ in range(n)]))
+    n, K = map(int, input().split())
+    print(solution(K, [tuple(map(int, input().split())) for _ in range(n)]))
