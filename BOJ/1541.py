@@ -42,6 +42,7 @@ def solution(p: list):
 def short_code():
     """숏 코드
     """
+    a, *b = [sum(map(int, x.split("+"))) for x in input().split("-")];print(a - sum(b))
 
 
 if __name__ == '__main__':
