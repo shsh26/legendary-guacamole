@@ -9,17 +9,6 @@
 
 첫째 줄에 K원을 만드는데 필요한 동전 개수의 최솟값을 출력한다.
 
-Example:
-    def solution():
-        result = do_something()
-        return result
-
-    if __name__ == '__main__':
-
-        solution()
-
-"""
-
 
 def solution(k: int, coins: list):
     count = 0
@@ -29,9 +18,8 @@ def solution(k: int, coins: list):
     return count
 
 
+# 숏 코드
 def short_code():
-    """숏 코드
-    """
     n, k = map(int, input().split());c = 0
     for i in reversed(eval("int(input())," * n)): c += k // i;k %= i
     print(c)
@@ -40,3 +28,15 @@ def short_code():
 if __name__ == '__main__':
     N, K = map(int, input().split())
     print(solution(K, [int(input()) for _ in range(N)]))
+
+"""
+
+N, K = map(int, input().split())
+coins = [int(input()) for _ in range(N)]
+
+count = 0
+
+for c in coins[::-1]:
+    count += K // c
+    K %= c
+print(count)
