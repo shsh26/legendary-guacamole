@@ -12,22 +12,38 @@ N과 L은 1,000보다 작거나 같은 자연수이고, 물이 새는 곳의 위
 
 첫째 줄에 항승이가 필요한 테이프의 개수를 출력한다.
 
-"""
-
 N, L = map(int, input().split())
-pipe = [False] * 1001
-
-
+coord = [False] * 1001
 for i in map(int, input().split()):
-    pipe[i] = True
+    coord[i] = True
 
-tape = 0
+ans = 0
 i = 1
 
 while i < 1001:
-    if pipe[i]:
+    if coord[i]:
         i += L
-        tape += 1
+        ans += 1
     else:
         i += 1
-print(tape)
+
+print(ans)
+
+"""
+
+N, L = map(int, input().split())
+coord = list(map(int, input().split()))
+
+coord.sort()
+
+ans = 1
+i = coord[0] + L
+
+for j in range(1, len(coord)):
+    if i > coord[j]:
+        continue
+    else:
+        ans += 1
+        i = coord[j] + L
+
+print(ans)
