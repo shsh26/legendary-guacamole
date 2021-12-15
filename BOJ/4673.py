@@ -25,6 +25,25 @@ Example:
 
         solution()
 
+Another:
+    self_number = [True] * 10001
+
+    def d(n: int):
+        ans = n
+        while n > 0:
+            ans += n % 10
+            n //= 10
+        return ans
+
+    for i in range(1, 10001):
+        index = d(i)
+        if index < 10001:
+            self_number[index] = False
+
+    for i in range(1, 10001):
+        if self_number[i]:
+            print(i)
+
 """
 from collections import defaultdict
 
