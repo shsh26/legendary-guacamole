@@ -38,7 +38,25 @@ def short_code():
     m * int(input()) 3번 반복
     전체 곱 m에서 0부터 9가 존재하는지 확인
     """
-    exec('n,m=0,1'+'*int(input())'*3+';print(str(m).count(str(n)));n+=1'*10)
+    exec('n,m=0,1' + '*int(input())' * 3 + ';print(str(m).count(str(n)));n+=1' * 10)
+
+
+def other_solution():
+    arr = [0] * 10
+
+    A = int(input())
+    B = int(input())
+    C = int(input())
+
+    multi = A * B * C
+
+    while multi > 0:
+        index = multi % 10
+        arr[index] += 1
+        multi //= 10
+
+    for v in arr:
+        print(v)
 
 
 if __name__ == '__main__':
