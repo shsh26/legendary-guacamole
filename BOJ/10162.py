@@ -30,3 +30,15 @@ Example:
 
 """
 
+t = int(input())
+
+A = t // 300
+t -= A * 300
+B = t // 60
+t -= B * 60
+C = t // 10
+t -= C * 10
+if t > 0:
+    print(-1)
+else:
+    print(A, B, C)
