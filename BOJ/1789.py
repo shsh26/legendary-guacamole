@@ -20,7 +20,13 @@ Example:
 # 최대한 많은 서로 다른 자연수를 합해야 하므로 1부터 시작
 s = int(input())
 
-i = 0
-while s * 2 > i * (i + 1):
+total = 0
+i = 1
+cnt = 0
+while True:
+    total += i
+    if total > s:
+        break
+    cnt += 1
     i += 1
-print(i - 1)
+print(cnt)
