@@ -27,7 +27,8 @@ Example:
         solution()
 
 """
-
+# short code
+for i in[int]*int(input()):x,y=input().split();print(i(2*(i(y)-i(x)-.5)**.5))
 
 for _ in range(int(input())):
     x, y = map(int, input().split())
