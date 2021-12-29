@@ -14,25 +14,20 @@ from collections import deque
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-graph = [[] for _ in range(n)]
+graph = [[0] * n for _ in range(n)]
 check = [False] * n
 ans = 0
 
 for _ in range(m):
     u, v = map(lambda x: x - 1, map(int, input().split()))
-    graph[u].append(v)
-    graph[v].append(u)
-
-
-for i in range(n):
-    print(graph[i])
+    graph[u][v] = graph[v][u] = 1
 
 
 def dfs(now: int):
-    for nxt in graph[now]:
-        if not check[nxt]:
+    for nxt in range(n):
+        if not check[nxt] and graph[now][nxt]:
             check[nxt] = True
-            dfs(i)
+            dfs(nxt)
 
 
 def bfs(now: int):
@@ -42,8 +37,8 @@ def bfs(now: int):
 
     while queue:
         nxt = queue.popleft()
-        for i in graph[nxt]:
-            if not check[i]:
+        for i in range(n):
+            if not check[i] and graph[nxt][i]:
                 queue.append(i)
                 check[i] = True
 
@@ -51,7 +46,7 @@ def bfs(now: int):
 for i in range(n):
     if check[i]:
         continue
-    dfs(i)
+    bfs(i)
     ans += 1
 
 
