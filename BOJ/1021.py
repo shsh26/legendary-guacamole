@@ -20,3 +20,33 @@
 첫째 줄에 문제의 정답을 출력한다.
 
 """
+from collections import deque
+
+n, m = map(int, input().split())
+
+q = deque(range(1, n + 1))
+positions = list(map(int, input().split()))
+total = 0
+
+for i in range(m):
+    q_len = len(q)
+    q_index = q.index(positions[i])
+
+    if q_index < q_len - q_index:
+        while True:
+            if q[0] == positions[i]:
+                q.popleft()
+                break
+            else:
+                q.append(q[0])
+                q.popleft()
+                total += 1
+    else:
+        while True:
+            if q[0] == positions[i]:
+                q.popleft()
+                break
+            else:
+                q.appendleft(q.pop())
+                total += 1
+print(total)
