@@ -36,7 +36,7 @@ def solution(n: int):
                 dp[i][j] = dp[i - 1][8]
             else:
                 dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j + 1]
-    return sum(dp[n-1]) % 1000000000
+    return sum(dp[n - 1]) % 1000000000
 
 
 def short_code():
