@@ -43,3 +43,60 @@ if ans != 10000:
     print(ans)
 else:
     print(-1)
+
+N = int(input())
+peo = list(map(int, input().split()))
+adj = [[] for _ in range(N)]
+for i in range(N):
+    _, *edges = map(int, input().split())
+    for j in edges:
+        adj[i].append(j - 1)
+
+red = []
+blue = []
+arr = []
+checked = []
+ans = 1000
+
+
+def dfs(now):
+    for nxt in adj[now]:
+        if nxt in arr and not checked[nxt]:
+            checked[nxt] = True
+            dfs(nxt)
+
+
+def is_possible():
+    global arr, checked
+
+    checked = [False] * N
+    arr = red[:]
+    checked[arr[0]] = True
+    dfs(arr[0])
+    for i in red:
+        if not checked[i]:
+            return False
+
+    arr = blue[:]
+    checked[arr[0]] = True
+    dfs(arr[0])
+    for i in blue:
+        if not checked[i]:
+            return False
+
+    return True
+
+
+for i in range(1, N // 2 + 1):
+    for combi in combinations([i for i in range(N)], r):
+        blue.clear()
+        red = list(combi)
+        for i in range(N):
+            if i not in red:
+                blue.append(i)
+
+        if is_possible():
+            ans = min(ans, abs(sum(peo[i] for i in red) - sum(peo[i] for i in blue)))
+
+
+print(-1 if ans == 1000 else ans)
