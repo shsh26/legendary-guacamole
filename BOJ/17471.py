@@ -87,7 +87,7 @@ def is_possible():
     return True
 
 
-for i in range(1, N // 2 + 1):
+for r in range(1, N // 2 + 1):
     for combi in combinations([i for i in range(N)], r):
         blue.clear()
         red = list(combi)
