@@ -15,6 +15,8 @@
 첫째 줄에 음식물 중 가장 큰 음식물의 크기를 출력하라
 
 """
+from collections import deque
+
 dy = [-1, 0, 1, 0]
 dx = [0, 1, 0, -1]
 
@@ -25,31 +27,37 @@ ans = 0
 
 
 def is_valid_coord(x, y):
-    return 0 <= x < N or 0 <= y < M
+    return 0 <= x < N and 0 <= y < M
 
 
-def dfs(sx, sy):
+def bfs(x, y):
+    q = deque()
     size = 1
-    visited[sx][sy] = True
 
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
+    q.append([x, y])
+    visited[x][y] = True
 
-        if not is_valid_coord(nx, ny):
-            continue
-        if not visited[nx][ny] and board[nx][y]:
-            size += dfs(nx, ny)
+    while q:
+        sx, sy = q.popleft()
+
+        for k in range(4):
+            nx = sx + dx[k]
+            ny = sy + dy[k]
+
+            if is_valid_coord(nx, ny) and not visited[nx][ny] and board[nx][ny]:
+                q.append([nx, ny])
+                visited[nx][ny] = True
+                size += 1
     return size
 
 
 for _ in range(K):
-    x, y = map(lambda x: x - 1, map(int, input().split()))
-    board[x][y] = True
+    a, b = map(lambda v: v - 1, map(int, input().split()))
+    board[a][b] = True
 
 for i in range(N):
     for j in range(M):
         if board[i][j] and not visited[i][j]:
-            ans = max(ans, dfs(i, j))
+            ans = max(ans, bfs(i, j))
 
 print(ans)
