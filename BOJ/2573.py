@@ -11,7 +11,75 @@
 """
 from collections import deque
 
+dx = [0, 1, 0, -1]
+dy = [1, 0, -1, 0]
+
+
+def is_coord(x, y):
+    return 0 <= x < n and 0 <= y < m
+
+
+def melt(x, y):
+    count = 0
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+
+        if arctic[nx][ny] == 0:
+            count += 1
+    return count
+
+
 n, m = map(int, input().split())
 
 arctic = [list(map(int, input().split())) for _ in range(n)]
+year = 0
 
+
+def bfs(x, y):
+    q = deque()
+    q.append([x, y])
+    visited[x][y] = True
+    size = 1
+    while q:
+        sx, sy = q.popleft()
+
+        for i in range(4):
+            nx = sx + dx[i]
+            ny = sy + dy[i]
+
+            if is_coord(nx, ny) and not visited[nx][ny] and arctic[nx][ny] > 0:
+                size += 1
+                q.append([nx, ny])
+                visited[nx][ny] = True
+
+    return size
+
+
+while True:
+
+    visited = [[False] * m for _ in range(n)]
+    arctic_temp = [[0] * m for _ in range(n)]
+    cnt = 0
+    for j in range(n):
+        for k in range(m):
+            if not visited[j][k] and arctic[j][k] > 0:
+                cnt += 1
+                bfs(j, k)
+
+    if cnt >= 2:
+        print(year)
+        break
+    if cnt == 0:
+        print(0)
+        break
+
+    for j in range(n):
+        for k in range(m):
+            if arctic[j][k] > 0:
+                arctic_temp[j][k] = arctic[j][k] - melt(j, k)
+                if arctic_temp[j][k] < 0:
+                    arctic_temp[j][k] = 0
+
+    arctic = arctic_temp
+    year += 1
