@@ -3,10 +3,12 @@ from collections import deque
 N, K, M = map(int, input().split())
 
 adj = [[] for _ in range(N + M)]
+
+
 for i in range(M):
     for j in map(lambda x: x - 1, map(int, input().split())):
-        adj[N + j].append(j)
-        adj[j].append(N + j)
+        adj[N + i].append(j)
+        adj[j].append(N + i)
 
 
 def bfs():
@@ -25,3 +27,6 @@ def bfs():
                 dq.append((nxt, nd))
 
     return -1
+
+
+print(bfs())
