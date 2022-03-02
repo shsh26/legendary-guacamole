@@ -14,37 +14,69 @@ class Node:
 
 class CircularLinkedList:
     def __init__(self):
-        self.head = Node('head')
-        self.head.next = self.head
+        self.tail = None
+        self.cur = None
+        self.before = None
+        self.num_of_data = 0
 
-    def insert(self, item, new):
-        new_node = Node(new)
-        cur_node = self.find(item)
-        new_node.next = cur_node.next
-        cur_node.next = new_node
+    def insert(self, data):
+        self.f_insert(data)
 
-    def find(self, item):
-        cur_node = self.head
-        while cur_node.element != item:
-            cur_node = cur_node.next
-        return cur_node
+    def f_insert(self, data):
+        new_node = Node(data)
 
-    def find_previous(self, item):
-        cur_node = self.head
-        while cur_node.next.element != item:
-            cur_node = cur_node.next
-        return cur_node
+        if self.tail is None:
+            self.tail = new_node
+            new_node.next = new_node
+        else:
+            new_node.next = self.tail.next
+            self.tail.next = new_node
+            self.tail = new_node
+        self.num_of_data += 1
 
-    def remove(self, item):
-        prev_node = self.find_previous(item)
-        prev_node.next = prev_node.next.next
+    def insert_front(self, data):
+        new_node = Node(data)
+        if self.tail is None:
+            new_node.next = new_node
+        else:
+            new_node.next = self.tail.next
+            self.tail.next = new_node
+            self.tail = new_node
+        self.num_of_data += 1
 
-    def show(self):
-        cur_node = self.head
-        while cur_node.next.element != 'head':
-            print(cur_node.element, end=' -> ')
-            cur_node = cur_node.next
-        print(cur_node.element)
+    def l_first(self):
+        if self.tail is None:
+            return None
+        self.before = self.tail
+        self.cur = self.tail.next
+
+        return self.cur.element
+
+    def next_node(self):
+        if self.tail is None:
+            return None
+        self.before = self.cur
+        self.cur = self.cur.next
+        return self.cur.element
+
+    def remove(self):
+        remove_data = self.cur
+        self.before.next = self.cur.next
+        self.cur = self.before
+        self.num_of_data -= 1
+        return remove_data.element
+
+    def count(self):
+        return self.num_of_data
 
 
 n, k, m = map(int, input().split())
+
+c_list = CircularLinkedList()
+for i in range(1, n + 1):
+    c_list.insert(i)
+
+print(c_list.l_first())
+
+while c_list.count() > 1:
+    cnt = m
