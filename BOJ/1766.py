@@ -37,14 +37,16 @@ Example:
 import sys
 import heapq
 
+from typing import List
+
 inputs = sys.stdin.readline
 
 
-def min_o(n, graph, in_degree):
+def set_workbook(length: int, graph: List[List[int]], in_degree: List[int]) -> List[int]:
     answer = []
     queue = []
 
-    for i in range(1, n + 1):
+    for i in range(1, length + 1):
         if in_degree[i] == 0:
             heapq.heappush(queue, i)
 
@@ -52,10 +54,10 @@ def min_o(n, graph, in_degree):
         tmp = heapq.heappop(queue)
         answer.append(tmp)
 
-        for i in graph[tmp]:
-            in_degree[i] -= 1
-            if in_degree[i] == 0:
-                heapq.heappush(queue, i)
+        for v in graph[tmp]:
+            in_degree[v] -= 1
+            if in_degree[v] == 0:
+                heapq.heappush(queue, v)
 
     return answer
 
@@ -64,12 +66,12 @@ if __name__ == '__main__':
     N, M = map(int, inputs().split())
 
     problem_graph = [[] for _ in range(N + 1)]
-    in_degree = [0] * (N + 1)
+    in_degree_by_inputs = [0] * (N + 1)
 
     for _ in range(M):
         first, last = map(int, inputs().split())
         problem_graph[first].append(last)
-        in_degree[last] += 1
+        in_degree_by_inputs[last] += 1
 
-    result = min_o(N, problem_graph, in_degree)
+    result = set_workbook(N, problem_graph, in_degree_by_inputs)
     print(*result)
